@@ -1,0 +1,18 @@
+{
+  "issues": [
+    {
+      "id": "1",
+      "titulo": "Error en el login",
+      "descripcion": "El botón de login no responde al hacer clic.",
+      "estado": "Pendiente",
+      "prioridad": "Alta"
+    },
+    {
+      "id": "2",
+      "titulo": "Faltan iconos en el sidebar",
+      "descripcion": "Los iconos de configuración no se visualizan.",
+      "estado": "En Progreso",
+      "prioridad": "Media"
+    }
+  ]
+}
