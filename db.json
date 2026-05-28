@@ -13,6 +13,14 @@
       "descripcion": "Los iconos de configuración no se visualizan.",
       "estado": "En Progreso",
       "prioridad": "Media"
+    },
+    {
+      "titulo": "falta crear un modelo hamburguesa",
+      "descripcion": "para que se ve mejor desde el celular",
+      "estado": "Pendiente",
+      "prioridad": "Media",
+      "id": "iAkPgqXhvOw"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

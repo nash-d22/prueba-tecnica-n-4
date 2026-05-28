@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { getIssues, createIssue, updateIssue, deleteIssue } from '../services/issueService';
 import IssueCard from '../components/IssueCard';
@@ -15,21 +15,22 @@ const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingIssue, setEditingIssue] = useState(null);
 
-  useEffect(() => {
-    fetchIssues();
-  }, []);
-
-  const fetchIssues = async () => {
+  const fetchIssues = useCallback(async () => {
     setLoading(true);
     try {
       const data = await getIssues();
       setIssues(data);
-    } catch (error) {
+    } catch {
       Swal.fire('Error', 'No se pudieron cargar las incidencias', 'error');
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchIssues();
+  }, [fetchIssues]);
 
   const handleLogout = () => {
     logout();
@@ -61,7 +62,7 @@ const Dashboard = () => {
       }
       setIsModalOpen(false);
       setEditingIssue(null);
-    } catch (error) {
+    } catch {
       Swal.fire('Error', 'Hubo un problema al procesar la solicitud', 'error');
     }
   };
@@ -83,7 +84,7 @@ const Dashboard = () => {
         await deleteIssue(id);
         setIssues(issues.filter((i) => i.id !== id));
         Swal.fire('Eliminado', 'La incidencia ha sido eliminada', 'success');
-      } catch (error) {
+      } catch {
         Swal.fire('Error', 'No se pudo eliminar la incidencia', 'error');
       }
     }
@@ -166,6 +167,7 @@ const Dashboard = () => {
       </main>
 
       <IssueForm
+        key={editingIssue?.id || 'new'}
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);

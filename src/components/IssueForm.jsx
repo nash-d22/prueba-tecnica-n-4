@@ -1,26 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { X } from 'lucide-react';
 
 const IssueForm = ({ isOpen, onClose, onSubmit, initialData }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(initialData || {
     titulo: '',
     descripcion: '',
     estado: 'Pendiente',
     prioridad: 'Media',
   });
-
-  useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
-    } else {
-      setFormData({
-        titulo: '',
-        descripcion: '',
-        estado: 'Pendiente',
-        prioridad: 'Media',
-      });
-    }
-  }, [initialData, isOpen]);
 
   if (!isOpen) return null;
 
